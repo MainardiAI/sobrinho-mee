@@ -8,15 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- GOOGLE ANALYTICS 4 - MUDE G-XXXXX PELO SEU ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-546508431"></script>
+<!-- GOOGLE ANALYTICS 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JE9PVVXXS6"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-546508431', {
-    'send_page_view': true,
-    'anonymize_ip': true
+  gtag('config', 'G-JE9PVVXXS6', {
+    send_page_view: true,
+    anonymize_ip: true
   });
 </script>
 
@@ -411,19 +411,59 @@ function pontuar(prod) {
   let score = 60;
   const r = respostas;
   const precoNum = prod.precoMin;
-  if (r.gasto === 'baixo') { if (precoNum <= 1500) score += 18; else if (precoNum <= 2500) score -= 12; else score -= 30; }
-  else if (r.gasto === 'medio') { if (precoNum >= 1400 && precoNum <= 2600) score += 18; else if (precoNum < 1400) score += 6; else score -= 12; }
-  else { if (precoNum >= 2000) score += 16; else score += 4; }
-  if (r.casa === 'grande') { score += prod.laser ? 12 : -14; }
-  else if (r.casa === 'media') { score += prod.laser ? 7 : 0; }
-  else { score += 4; }
-  if (r.trabalho === 'simples') { score += 6; }
-  else if (r.trabalho === 'pano') { score += prod.pano ? 12 : -16; }
-  else { score += prod.autolimpa ? 16 : (prod.pano ? 2 : -18); }
-  if (r.ajuda === 'nao') { score += prod.app ? -6 : 14; }
-  else if (r.ajuda === 'talvez') { score += 4; }
-  else { score += prod.app ? 10 : -8; }
-  score += (prod.nota - 4.3) * 20;
+
+  // GASTO — PESO AUMENTADO
+  if (r.gasto === 'baixo') {
+    if (precoNum <= 1500) score += 30;
+    else if (precoNum <= 2500) score -= 20;
+    else score -= 40;
+  }
+  else if (r.gasto === 'medio') {
+    if (precoNum >= 1400 && precoNum <= 2600) score += 30;
+    else if (precoNum < 1400) score += 10;
+    else score -= 20;
+  }
+  else {
+    if (precoNum >= 2000) score += 24;
+    else score += 8;
+  }
+
+  // CASA — PESO AUMENTADO
+  if (r.casa === 'grande') {
+    score += prod.laser ? 20 : -25;
+  }
+  else if (r.casa === 'media') {
+    score += prod.laser ? 14 : -4;
+  }
+  else {
+    score += 2;
+  }
+
+  // TRABALHO — PESO AUMENTADO
+  if (r.trabalho === 'simples') {
+    score += 8;
+  }
+  else if (r.trabalho === 'pano') {
+    score += prod.pano ? 30 : -30;
+  }
+  else {
+    score += prod.autolimpa ? 25 : (prod.pano ? 6 : -30);
+  }
+
+  // APP — MANTÉM PESO
+  if (r.ajuda === 'nao') {
+    score += prod.app ? -10 : 20;
+  }
+  else if (r.ajuda === 'talvez') {
+    score += 6;
+  }
+  else {
+    score += prod.app ? 14 : -12;
+  }
+
+  // RATING — PESO AUMENTADO
+  score += (prod.nota - 4.3) * 30;
+
   return Math.max(35, Math.min(99, Math.round(score)));
 }
 
