@@ -367,34 +367,82 @@ function nomePerfil() {
 }
 
 function mostrarResultados() {
-  const ranqueado = PRODUTOS.map(p => ({ ...p, match: pontuar(p) })).sort((a, b) => b.match - a.match).slice(0, 3);
-  gtag('event', 'resultados_exibidos', { produtos: ranqueado.map(p => p.id).join(','), match_scores: ranqueado.map(p => p.match).join(',') });
-  document.getElementById('rprofile').innerHTML = nomePerfil().map(c => `<span class="r-chip">${c}</span>`).join('');
-  const rotulos = [
-    { flag: '✓ Combina mais com você', cls: '' },
-    { flag: 'Boa alternativa', cls: 'calm' },
-    { flag: 'Também vale olhar', cls: 'calm' },
-  ];
-  document.getElementById('cards').innerHTML = ranqueado.map((p, idx) => {
-    const isMatch = idx === 0;
-    const circ = 2 * Math.PI * 28;
-    const dash = (p.match / 100) * circ;
-    const cor = isMatch ? 'var(--gold)' : 'var(--accent)';
-    const specs = [];
-    specs.push(`<div class="spec"><span class="spec-ico">🔋</span> Bateria: <b>${p.autonomia}</b></div>`);
-    specs.push(`<div class="spec"><span class="spec-ico">🌀</span> ${p.succao}</div>`);
-    specs.push(`<div class="spec"><span class="spec-ico">${p.pano ? '💧' : '🧹'}</span> ${p.pano ? 'Aspira e passa pano' : 'Aspira o pó'}</div>`);
-    if (p.autolimpa) specs.push(`<div class="spec"><span class="spec-ico">✨</span> <b>Se limpa sozinho</b></div>`);
-    specs.push(`<div class="spec"><span class="spec-ico">${p.app ? '📱' : '🔘'}</span> ${p.app ? 'Controla pelo app' : 'Funciona no botão'}</div>`);
-    const estrelas = '★'.repeat(Math.round(p.nota)) + '☆'.repeat(5 - Math.round(p.nota));
-    const precoLinha = p.precoMin === p.precoMax ? `<span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span>` : `<span class="pretext">em geral entre</span><span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span> <span class="cents">a R$ ${p.precoMax.toLocaleString('pt-BR')}</span>`;
-    return `<div class="card ${isMatch ? 'match' : ''}"><div class="card-flag ${rotulos[idx].cls}">${rotulos[idx].flag}</div><div class="card-match"><div class="match-ring"><svg width="66" height="66"><circle cx="33" cy="33" r="28" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="33" cy="33" r="28" fill="none" stroke="${cor}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${dash} ${circ}"/></svg><div class="val">${p.match}</div></div><div class="match-lbl"><strong>de combinação</strong>com o que você me contou</div></div><h3>${p.nome}</h3><div class="card-brand">${p.marca}</div><div class="card-price">${precoLinha}<span class="card-conf">preço conferido em ${CONFERIDO} · confira o valor do dia na loja</span></div><div class="card-specs">${specs.join('')}</div><div class="card-trust"><div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.nota.toFixed(1)}</b> &nbsp;<span style="color:var(--ink-soft)">(${p.avaliacoes.toLocaleString('pt-BR')} avaliações)</span></div><div class="trust-row"><span class="ico">🛡️</span> ${p.vendedor}</div></div><div class="card-why">${p.resumo}</div><a class="card-buy ${isMatch ? '' : 'ghost'}" href="${p.link}" target="_blank" rel="noopener" onclick="gtag('event', 'clique_compra', {produto: '${p.id}', posicao: ${idx + 1}, match_score: ${p.match}, preco: ${p.precoMin}})">Ver na loja →</a><div class="card-store">na ${p.loja} · loja confiável</div></div>`;
-  }).join('');
-  document.getElementById('screen-loading').classList.remove('active');
-  document.getElementById('screen-results').classList.add('active');
-  window.scrollTo(0, 0);
+  // Determina categoria (por enquanto, fixo em "aspirador")
+  const categoria = 'aspirador';
+  
+  // Chama a API
+  fetch('/api/recommend', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      categoria: categoria,
+      respostas: respostas
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const ranqueado = data.resultados;
+    
+    // Tracking
+    gtag('event', 'resultados_exibidos', { 
+      produtos: ranqueado.map(p => p.id).join(','), 
+      match_scores: ranqueado.map(p => p.match).join(',') 
+    });
+    
+    document.getElementById('rprofile').innerHTML = nomePerfil().map(c => `<span class="r-chip">${c}</span>`).join('');
+    
+    const rotulos = [
+      { flag: '✓ Combina mais com você', cls: '' },
+      { flag: 'Boa alternativa', cls: 'calm' },
+      { flag: 'Também vale olhar', cls: 'calm' },
+    ];
+    
+    document.getElementById('cards').innerHTML = ranqueado.map((p, idx) => {
+      const isMatch = idx === 0;
+      const circ = 2 * Math.PI * 28;
+      const dash = (p.match / 100) * circ;
+      const cor = isMatch ? 'var(--gold)' : 'var(--accent)';
+      const specs = [];
+      specs.push(`<div class="spec"><span class="spec-ico">💰</span> <b>R$ ${p.preco.toLocaleString('pt-BR')}</b></div>`);
+      specs.push(`<div class="spec"><span class="spec-ico">🔋</span> ${p.specs.autonomia || p.specs.tamanho || p.specs.cpu || 'N/A'}</div>`);
+      const estrelas = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+      const precoLinha = `<span class="num">R$ ${p.preco.toLocaleString('pt-BR')}</span>`;
+      return `
+        <div class="card ${isMatch ? 'match' : ''}">
+          <div class="card-flag ${rotulos[idx].cls}">${rotulos[idx].flag}</div>
+          <div class="card-match">
+            <div class="match-ring">
+              <svg width="66" height="66">
+                <circle cx="33" cy="33" r="28" fill="none" stroke="var(--line)" stroke-width="6"/>
+                <circle cx="33" cy="33" r="28" fill="none" stroke="${cor}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${dash} ${circ}"/>
+              </svg>
+              <div class="val">${p.match}</div>
+            </div>
+            <div class="match-lbl"><strong>de combinação</strong>com o que você me contou</div>
+          </div>
+          <h3>${p.nome}</h3>
+          <div class="card-brand">${p.marca}</div>
+          <div class="card-price">${precoLinha}</div>
+          <div class="card-specs">${specs.join('')}</div>
+          <div class="card-trust">
+            <div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.rating.toFixed(1)}</b> &nbsp;<span style="color:var(--ink-soft)">(${p.avaliacoes.toLocaleString('pt-BR')} avaliações)</span></div>
+            <div class="trust-row"><span class="ico">🛡️</span> ${p.vendedor}</div>
+          </div>
+          <div class="card-why">${p.resumo}</div>
+          <a class="card-buy ${isMatch ? '' : 'ghost'}" href="${p.link}" target="_blank" rel="noopener" onclick="gtag('event', 'clique_compra', {produto: '${p.id}', posicao: ${idx + 1}, match_score: ${p.match}, preco: ${p.preco}})">Ver na loja →</a>
+          <div class="card-store">Loja confiável</div>
+        </div>`;
+    }).join('');
+    
+    document.getElementById('screen-loading').classList.remove('active');
+    document.getElementById('screen-results').classList.add('active');
+    window.scrollTo(0, 0);
+  })
+  .catch(error => {
+    console.error('Erro ao buscar recomendações:', error);
+    alert('Erro ao carregar recomendações. Tente novamente.');
+  });
 }
-
 function restart() {
   gtag('event', 'quiz_reiniciado');
   Object.keys(respostas).forEach(k => delete respostas[k]);
