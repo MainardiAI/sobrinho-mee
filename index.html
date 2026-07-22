@@ -7,31 +7,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- GOOGLE ANALYTICS 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JE9PVVXXS6"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-JE9PVVXXS6', {
-    'send_page_view': true,
-    'anonymize_ip': true
-  });
+  gtag('config', 'G-XXXXX', {'send_page_view': true,'anonymize_ip': true});
 </script>
-
 <style>
   :root {
-    --paper: #FBF7F0;
-    --card: #FFFFFF;
-    --ink: #2A2622;
-    --ink-soft: #6B6259;
-    --line: #E8E0D4;
-    --accent: #2E7D5B;
-    --accent-soft: #E4F0EA;
-    --gold: #C98A2E;
-    --gold-soft: #FBEFD9;
-    --shadow: 0 2px 4px rgba(42,38,34,.04), 0 8px 24px rgba(42,38,34,.06);
+    --paper: #FBF7F0; --card: #FFFFFF; --ink: #2A2622; --ink-soft: #6B6259;
+    --line: #E8E0D4; --accent: #2E7D5B; --accent-soft: #E4F0EA; --gold: #C98A2E;
+    --gold-soft: #FBEFD9; --shadow: 0 2px 4px rgba(42,38,34,.04), 0 8px 24px rgba(42,38,34,.06);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -42,7 +29,6 @@
     -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
   header {
     padding: 28px 0; border-bottom: 1px solid var(--line);
     position: sticky; top: 0; background: rgba(251,247,240,.92);
@@ -56,11 +42,9 @@
   }
   .brand-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
   .brand-tag { font-size: 15px; color: var(--ink-soft); margin-top: -2px; }
-
   .screen { display: none; padding: 48px 0 96px; }
   .screen.active { display: block; animation: fade .4s ease; }
   @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
   .hero { text-align: center; max-width: 720px; margin: 0 auto; }
   .hero-eyebrow {
     display: inline-block; background: var(--accent-soft); color: var(--accent);
@@ -72,7 +56,6 @@
   }
   .hero h1 em { color: var(--accent); font-style: normal; }
   .hero p { font-size: 22px; color: var(--ink-soft); margin-bottom: 40px; }
-
   .btn-big {
     display: inline-flex; align-items: center; gap: 12px;
     background: var(--accent); color: #fff;
@@ -84,7 +67,6 @@
   .btn-big:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(46,125,91,.2), 0 16px 32px rgba(46,125,91,.16); }
   .btn-big:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
   .btn-big .arrow { font-size: 26px; }
-
   .hero-how { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 72px; text-align: left; }
   .how-step { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px; box-shadow: var(--shadow); }
   .how-num {
@@ -94,7 +76,6 @@
   }
   .how-step h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
   .how-step p { font-size: 17px; color: var(--ink-soft); }
-
   .q-shell { max-width: 640px; margin: 0 auto; }
   .q-progress { display: flex; gap: 8px; margin-bottom: 40px; }
   .q-dot { flex: 1; height: 8px; border-radius: 4px; background: var(--line); transition: background .3s ease; }
@@ -118,7 +99,6 @@
   .q-opt-sub { font-size: 16px; color: var(--ink-soft); margin-top: 2px; }
   .q-back { background: none; border: none; color: var(--ink-soft); font-family: 'Figtree', sans-serif; font-size: 18px; font-weight: 500; cursor: pointer; margin-top: 32px; padding: 8px 4px; display: inline-flex; align-items: center; gap: 6px; }
   .q-back:hover { color: var(--ink); }
-
   .loading { text-align: center; max-width: 560px; margin: 40px auto; }
   .loading h2 { font-family: 'Fraunces', serif; font-size: 34px; font-weight: 600; margin-bottom: 16px; }
   .loading-steps { text-align: left; margin: 40px auto 0; max-width: 420px; display: grid; gap: 18px; }
@@ -126,13 +106,11 @@
   .load-item.on { opacity: 1; color: var(--ink); }
   .load-check { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; border: 2px solid var(--line); display: grid; place-items: center; font-size: 18px; color: var(--accent); transition: border-color .4s ease, background .4s ease; }
   .load-item.on .load-check { border-color: var(--accent); background: var(--accent-soft); }
-
   .r-head { max-width: 760px; margin: 0 auto 12px; text-align: center; }
   .r-head h2 { font-family: 'Fraunces', serif; font-size: clamp(30px, 4.5vw, 44px); font-weight: 600; letter-spacing: -.01em; margin-bottom: 12px; }
   .r-profile { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 8px; }
   .r-chip { background: var(--accent-soft); color: var(--accent); font-size: 16px; font-weight: 600; padding: 7px 16px; border-radius: 999px; }
   .r-sub { font-size: 18px; color: var(--ink-soft); margin-top: 12px; }
-
   .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 28px 26px; box-shadow: var(--shadow); display: flex; flex-direction: column; position: relative; }
   .card.match { border: 2px solid var(--gold); box-shadow: 0 4px 8px rgba(201,138,46,.12), 0 16px 40px rgba(201,138,46,.14); }
@@ -173,7 +151,6 @@
   .r-safety b { color: var(--ink); }
   footer { border-top: 1px solid var(--line); padding: 32px 0; text-align: center; color: var(--ink-soft); font-size: 15px; }
   footer .mee { font-family: 'Fraunces', serif; color: var(--ink); font-weight: 600; }
-
   @media (max-width: 900px) {
     .hero-how { grid-template-columns: 1fr; }
     .cards { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -270,43 +247,26 @@
 
 <script>
 const CONFERIDO = 'julho/2026';
-
 const PERGUNTAS = [
-  {
-    key: 'gasto',
-    titulo: 'Quanto você quer gastar?',
-    ajuda: 'Não tem resposta errada. Isso me ajuda a não te mostrar coisa fora do seu bolso.',
-    opcoes: [
+  { key: 'gasto', titulo: 'Quanto você quer gastar?', ajuda: 'Não tem resposta errada. Isso me ajuda a não te mostrar coisa fora do seu bolso.', opcoes: [
       { valor: 'baixo',  rotulo: 'Até R$ 1.500',           sub: 'O essencial, bom e barato',   icone: '💰' },
       { valor: 'medio',  rotulo: 'Entre R$ 1.500 e 2.500', sub: 'Um meio-termo equilibrado',   icone: '💳' },
       { valor: 'alto',   rotulo: 'Posso investir mais',    sub: 'Quero o melhor, sem apertar', icone: '💎' },
     ]
   },
-  {
-    key: 'casa',
-    titulo: 'Como é a sua casa?',
-    ajuda: 'Casas maiores ou com mais de um andar pedem um robô mais esperto pra se localizar.',
-    opcoes: [
+  { key: 'casa', titulo: 'Como é a sua casa?', ajuda: 'Casas maiores ou com mais de um andar pedem um robô mais esperto pra se localizar.', opcoes: [
       { valor: 'pequena', rotulo: 'Apartamento ou casa pequena', sub: 'Tudo no mesmo andar',        icone: '🏠' },
       { valor: 'media',   rotulo: 'Casa de tamanho médio',        sub: 'Alguns cômodos',             icone: '🏡' },
       { valor: 'grande',  rotulo: 'Casa grande ou dois andares',  sub: 'Preciso que ele se vire bem', icone: '🏘️' },
     ]
   },
-  {
-    key: 'trabalho',
-    titulo: 'O que é mais importante pra você?',
-    ajuda: 'Alguns robôs só aspiram. Outros passam pano e até se limpam sozinhos.',
-    opcoes: [
+  { key: 'trabalho', titulo: 'O que é mais importante pra você?', ajuda: 'Alguns robôs só aspiram. Outros passam pano e até se limpam sozinhos.', opcoes: [
       { valor: 'simples', rotulo: 'Só aspirar bem o pó',   sub: 'Simples e sem complicação', icone: '🧹' },
       { valor: 'pano',    rotulo: 'Aspirar e passar pano', sub: 'Deixar o chão mais limpo',  icone: '💧' },
       { valor: 'tudo',    rotulo: 'Que faça tudo sozinho', sub: 'Quero esquecer que existe', icone: '✨' },
     ]
   },
-  {
-    key: 'ajuda',
-    titulo: 'Você se vira bem com aplicativo de celular?',
-    ajuda: 'Sem problema se não. Só quero te indicar algo que você consiga usar sem stress.',
-    opcoes: [
+  { key: 'ajuda', titulo: 'Você se vira bem com aplicativo de celular?', ajuda: 'Sem problema se não. Só quero te indicar algo que você consiga usar sem stress.', opcoes: [
       { valor: 'nao',    rotulo: 'Prefiro simples, com botão', sub: 'Menos tela, melhor',   icone: '🔘' },
       { valor: 'talvez', rotulo: 'Me viro se for fácil',       sub: 'Um app simples tá ok', icone: '📱' },
       { valor: 'sim',    rotulo: 'Adoro um app completo',      sub: 'Quero controlar tudo', icone: '🎛️' },
@@ -314,6 +274,19 @@ const PERGUNTAS = [
   }
 ];
 
+const PRODUTOS = [
+  { id: 'electrolux-erb20', nome: 'Electrolux ERB20', marca: 'Electrolux · marca confiável', precoMin: 599, precoMax: 699, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: false, autonomia: '140 min', succao: 'Sensores, botão · navegação aleatória', nota: 4.4, avaliacoes: 631, vendedor: 'Loja oficial Electrolux', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-apirador-de-po-electrolux-home-e-control-experience-erb20-bivolt/p/MLB24593718', resumo: 'Marca consagrada, simples e confiável. Aspira e passa pano, sem complicação. Ideal pra quem não quer tecnologia demais, só limpeza garantida.' },
+  { id: 'wap-w310', nome: 'WAP Robot W310', marca: 'WAP · qualidade nacional', precoMin: 799, precoMax: 899, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: true, autonomia: '130 min', succao: 'Sensores, sem laser · 3 níveis ajustáveis', nota: 4.7, avaliacoes: 450, vendedor: 'Loja oficial WAP', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-robo-wap-w310-preto-30w-bivolt-carregador/up/MLBU3256559407', resumo: 'WAP com mais potência. Aspira, passa pano, tem app e controle remoto. Boa bateria (2h+). Pra quem quer um pouco mais de tecnologia, sem gastar muito.' },
+  { id: 'wap-w400', nome: 'WAP Robot W400', marca: 'WAP · marca brasileira', precoMin: 899, precoMax: 999, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: true, autonomia: '100 min', succao: 'Sensores, sem laser · navegação aleatória', nota: 4.5, avaliacoes: 6340, vendedor: 'Loja oficial WAP', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-de-po-wap-autorrecarga-e-controle-robot-w400-_JM', resumo: 'Best-seller WAP. Aspira e passa pano, controle por app e Alexa. Mais vendido = mais testado. Confiança comprada com volume.' },
+  { id: 'ekaza-zuno', nome: 'Ekaza Zuno Smart', marca: 'Ekaza · inteligência prática', precoMin: 989, precoMax: 1299, faixa: 'bajo', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '120 min', succao: '3.000 Pa · mapeamento inteligente', nota: 4.8, avaliacoes: 500, vendedor: 'Loja oficial Ekaza', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-de-po-zuno-inteligente-smart-clean-e-passa-pano-mapeamento-da-casa-alexa-24w-cor-preto-ekaza/p/MLB61991863', resumo: 'Barato mas com laser. Mapeia sua casa, aspira, passa pano. App e Alexa. O melhor custo-benefício pra quem quer inteligência sem quebrar o banco.' },
+  { id: 'xiaomi-x10', nome: 'Xiaomi Mi Robot X10', marca: 'Xiaomi · qualidade global', precoMin: 1899, precoMax: 2280, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '4.000 Pa · laser LiDAR', nota: 4.7, avaliacoes: 950, vendedor: 'Loja oficial Xiaomi', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-de-po-rob-xiaomi-x10-bhr6068eu-branco/p/MLB39142701', resumo: 'Xiaomi confiável com laser. Aspira + passa pano, 3h de bateria, app inteligente. Pra casa média sem precisar de base autolimpante.' },
+  { id: 'xiaomi-s40c', nome: 'Xiaomi S40C', marca: 'Xiaomi · tecnologia asiática', precoMin: 1399, precoMax: 1599, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '150 min', succao: '5.000 Pa · mapeamento 360°', nota: 4.7, avaliacoes: 800, vendedor: 'Loja oficial Xiaomi', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-xiaomi-s40c-aspirador-inteligente/p/MLB57895632', resumo: 'Xiaomi mais acessível. Laser 360°, aspira + pano, app inteligente. Melhor custo-benefício da faixa média segundo especialistas.' },
+  { id: 'xiaomi-s10', nome: 'Xiaomi Mi Robot S10', marca: 'Xiaomi · líder de vendas', precoMin: 2299, precoMax: 2499, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '130 min', succao: '4.000 Pa · navegação laser', nota: 4.8, avaliacoes: 1345, vendedor: 'MercadoLíder · +10 mil vendas', vendedorTipo: 'lider', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-inteligente-xiaomi-mi-vacuum-mop-s10-bhr6389us-cor-cor-branco/p/MLB24943613', resumo: 'A melhor nota (4,8 estrelas) com mais de mil avaliações. MercadoLíder desde sempre. Confiança pura com muitos vendidos e bem avaliados.' },
+  { id: 'roborock-q7bf', nome: 'Roborock Q7 BF', marca: 'Roborock · especialista', precoMin: 1528, precoMax: 1699, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '8.000 Pa · laser preciso', nota: 4.6, avaliacoes: 200, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/roborock-q7-bf-aspirador-robo--inteligente-branco8000-pa220v/up/MLBU3935340102', resumo: 'Roborock só faz robô. Sucção forte (8 mil Pa), laser preciso, 3h de bateria. Premium do segmento mid-pano, não é flagship mas é confiável.' },
+  { id: 'roborock-qrevo-curv', nome: 'Roborock Qrevo Curv', marca: 'Roborock · inovação premium', precoMin: 4999, precoMax: 5999, faixa: 'alto', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '18.500 Pa · mapeamento 3D', nota: 4.9, avaliacoes: 280, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/robo-aspirador-roborock-qrevo-curv-110v-novo-lancamento/up/MLBU3190270049', resumo: 'Roborock inovador. Sucção brutal (18.500 Pa), laser inteligente, design curvo que alcança cantos. Premium com design futurista. Pra quem quer mais que robô comum.' },
+  { id: 'dreame-x40', nome: 'Dreame X40 Ultra', marca: 'Dreame · tecnologia premium', precoMin: 5990, precoMax: 7490, faixa: 'alto', aspira: true, pano: true, autolimpa: true, laser: true, app: true, autonomia: '180 min', succao: '12.000 Pa · esvaziamento 75 dias', nota: 4.9, avaliacoes: 320, vendedor: 'Loja oficial Dreame', vendedorTipo: 'oficial', loja: 'Mercado Livre / Amazon', link: 'https://www.amazon.com.br/Dreame-X40-Aspirador-esvaziado-esfregona/dp/B0D534DYFR', resumo: 'Topo de linha. Sucção forte, laser inteligente, aspira + passa pano + se limpa sozinho. Base autolimpante esvazia a sujeira sozinha (75 dias). Premium pra quem quer tudo automatizado.' },
+  { id: 'roborock-s8-pro', nome: 'Roborock S8 Pro Ultra', marca: 'Roborock · referência global', precoMin: 10990, precoMax: 12490, faixa: 'alto', aspira: true, pano: true, autolimpa: true, laser: true, app: true, autonomia: '150 min', succao: '6.000 Pa · base multi-função', nota: 4.9, avaliacoes: 420, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/roborock-s8-pro-ultra-rob-wi-fi-aspirador-esfrego-preto-110v/p/MLB29795934', resumo: 'Referência absoluta. Autolimpeza completa (esvazia, lava, seca). Reconhece obstáculos com IA. Pra quem tem orçamento e quer esquecer que limpeza existe. Premium máximo.' }
+];
 
 let passo = 0;
 const respostas = {};
@@ -367,59 +340,19 @@ function pontuar(prod) {
   let score = 60;
   const r = respostas;
   const precoNum = prod.precoMin;
-
-  // GASTO — PESO AUMENTADO
-  if (r.gasto === 'baixo') {
-    if (precoNum <= 1500) score += 30;
-    else if (precoNum <= 2500) score -= 20;
-    else score -= 40;
-  }
-  else if (r.gasto === 'medio') {
-    if (precoNum >= 1400 && precoNum <= 2600) score += 30;
-    else if (precoNum < 1400) score += 10;
-    else score -= 20;
-  }
-  else {
-    if (precoNum >= 2000) score += 24;
-    else score += 8;
-  }
-
-  // CASA — PESO AUMENTADO
-  if (r.casa === 'grande') {
-    score += prod.laser ? 20 : -25;
-  }
-  else if (r.casa === 'media') {
-    score += prod.laser ? 14 : -4;
-  }
-  else {
-    score += 2;
-  }
-
-  // TRABALHO — PESO AUMENTADO
-  if (r.trabalho === 'simples') {
-    score += 8;
-  }
-  else if (r.trabalho === 'pano') {
-    score += prod.pano ? 30 : -30;
-  }
-  else {
-    score += prod.autolimpa ? 25 : (prod.pano ? 6 : -30);
-  }
-
-  // APP — MANTÉM PESO
-  if (r.ajuda === 'nao') {
-    score += prod.app ? -10 : 20;
-  }
-  else if (r.ajuda === 'talvez') {
-    score += 6;
-  }
-  else {
-    score += prod.app ? 14 : -12;
-  }
-
-  // RATING — PESO AUMENTADO
+  if (r.gasto === 'baixo') { if (precoNum <= 1500) score += 30; else if (precoNum <= 2500) score -= 20; else score -= 40; }
+  else if (r.gasto === 'medio') { if (precoNum >= 1400 && precoNum <= 2600) score += 30; else if (precoNum < 1400) score += 10; else score -= 20; }
+  else { if (precoNum >= 2000) score += 24; else score += 8; }
+  if (r.casa === 'grande') { score += prod.laser ? 20 : -25; }
+  else if (r.casa === 'media') { score += prod.laser ? 14 : -4; }
+  else { score += 2; }
+  if (r.trabalho === 'simples') { score += prod.pano ? -15 : 20; }
+  else if (r.trabalho === 'pano') { score += prod.pano ? 30 : -30; }
+  else { score += prod.autolimpa ? 25 : (prod.pano ? 6 : -30); }
+  if (r.ajuda === 'nao') { score += prod.app ? -10 : 20; }
+  else if (r.ajuda === 'talvez') { score += 6; }
+  else { score += prod.app ? 14 : -12; }
   score += (prod.nota - 4.3) * 30;
-
   return Math.max(35, Math.min(99, Math.round(score)));
 }
 
@@ -454,34 +387,8 @@ function mostrarResultados() {
     if (p.autolimpa) specs.push(`<div class="spec"><span class="spec-ico">✨</span> <b>Se limpa sozinho</b></div>`);
     specs.push(`<div class="spec"><span class="spec-ico">${p.app ? '📱' : '🔘'}</span> ${p.app ? 'Controla pelo app' : 'Funciona no botão'}</div>`);
     const estrelas = '★'.repeat(Math.round(p.nota)) + '☆'.repeat(5 - Math.round(p.nota));
-    const precoLinha = p.precoMin === p.precoMax
-      ? `<span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span>`
-      : `<span class="pretext">em geral entre</span><span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span> <span class="cents">a R$ ${p.precoMax.toLocaleString('pt-BR')}</span>`;
-    return `
-    <div class="card ${isMatch ? 'match' : ''}">
-      <div class="card-flag ${rotulos[idx].cls}">${rotulos[idx].flag}</div>
-      <div class="card-match">
-        <div class="match-ring">
-          <svg width="66" height="66">
-            <circle cx="33" cy="33" r="28" fill="none" stroke="var(--line)" stroke-width="6"/>
-            <circle cx="33" cy="33" r="28" fill="none" stroke="${cor}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${dash} ${circ}"/>
-          </svg>
-          <div class="val">${p.match}</div>
-        </div>
-        <div class="match-lbl"><strong>de combinação</strong>com o que você me contou</div>
-      </div>
-      <h3>${p.nome}</h3>
-      <div class="card-brand">${p.marca}</div>
-      <div class="card-price">${precoLinha}<span class="card-conf">preço conferido em ${CONFERIDO} · confira o valor do dia na loja</span></div>
-      <div class="card-specs">${specs.join('')}</div>
-      <div class="card-trust">
-        <div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.nota.toFixed(1)}</b> &nbsp;<span style="color:var(--ink-soft)">(${p.avaliacoes.toLocaleString('pt-BR')} avaliações)</span></div>
-        <div class="trust-row"><span class="ico">🛡️</span> ${p.vendedor}</div>
-      </div>
-      <div class="card-why">${p.resumo}</div>
-      <a class="card-buy ${isMatch ? '' : 'ghost'}" href="${p.link}" target="_blank" rel="noopener" onclick="gtag('event', 'clique_compra', {produto: '${p.id}', posicao: ${idx + 1}, match_score: ${p.match}, preco: ${p.precoMin}})">Ver na loja →</a>
-      <div class="card-store">na ${p.loja} · loja confiável</div>
-    </div>`;
+    const precoLinha = p.precoMin === p.precoMax ? `<span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span>` : `<span class="pretext">em geral entre</span><span class="num">R$ ${p.precoMin.toLocaleString('pt-BR')}</span> <span class="cents">a R$ ${p.precoMax.toLocaleString('pt-BR')}</span>`;
+    return `<div class="card ${isMatch ? 'match' : ''}"><div class="card-flag ${rotulos[idx].cls}">${rotulos[idx].flag}</div><div class="card-match"><div class="match-ring"><svg width="66" height="66"><circle cx="33" cy="33" r="28" fill="none" stroke="var(--line)" stroke-width="6"/><circle cx="33" cy="33" r="28" fill="none" stroke="${cor}" stroke-width="6" stroke-linecap="round" stroke-dasharray="${dash} ${circ}"/></svg><div class="val">${p.match}</div></div><div class="match-lbl"><strong>de combinação</strong>com o que você me contou</div></div><h3>${p.nome}</h3><div class="card-brand">${p.marca}</div><div class="card-price">${precoLinha}<span class="card-conf">preço conferido em ${CONFERIDO} · confira o valor do dia na loja</span></div><div class="card-specs">${specs.join('')}</div><div class="card-trust"><div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.nota.toFixed(1)}</b> &nbsp;<span style="color:var(--ink-soft)">(${p.avaliacoes.toLocaleString('pt-BR')} avaliações)</span></div><div class="trust-row"><span class="ico">🛡️</span> ${p.vendedor}</div></div><div class="card-why">${p.resumo}</div><a class="card-buy ${isMatch ? '' : 'ghost'}" href="${p.link}" target="_blank" rel="noopener" onclick="gtag('event', 'clique_compra', {produto: '${p.id}', posicao: ${idx + 1}, match_score: ${p.match}, preco: ${p.precoMin}})">Ver na loja →</a><div class="card-store">na ${p.loja} · loja confiável</div></div>`;
   }).join('');
   document.getElementById('screen-loading').classList.remove('active');
   document.getElementById('screen-results').classList.add('active');
