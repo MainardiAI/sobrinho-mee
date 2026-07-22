@@ -1,5 +1,0 @@
-{
-  "buildCommand": "echo 'Build complete'",
-  "framework": "static",
-  "outputDirectory": "."
-}
