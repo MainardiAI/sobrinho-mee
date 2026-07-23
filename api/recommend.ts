@@ -103,7 +103,7 @@ export default async function handler(
 
     // Chamar a API de recomendação de produtos
     const produtosResponse = await fetch(
-      `${process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3001'}/api/recomenda-produtos`,
+`/api/recomenda-produtos`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
