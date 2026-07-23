@@ -182,15 +182,25 @@
 <section class="screen active" id="screen-intro">
   <div class="wrap">
     <div class="hero">
-      <span class="hero-eyebrow">Hoje eu vou te ajudar a comprar um robô aspirador</span>
+      <span class="hero-eyebrow">Vou te ajudar a comprar o produto certo</span>
       <h1>Me conta o que você precisa. <em>Eu faço a pesquisa.</em></h1>
-      <p>São 4 perguntas rápidas. Vou vasculhar as lojas, conferir quais são confiáveis e te mostrar as 3 melhores opções pra você — do jeito mais simples possível.</p>
-      <button class="btn-big" onclick="start()">Começar <span class="arrow">→</span></button>
+      <p>Escolhe um produto e responde algumas perguntas. Vou vasculhar as lojas, conferir quais são confiáveis e te mostrar as 3 melhores opções — do jeito mais simples possível.</p>
+      <button class="btn-big" onclick="selecionarCategoria()">Começar <span class="arrow">→</span></button>
       <div class="hero-how">
         <div class="how-step"><div class="how-num">1</div><h3>Você me conta</h3><p>O que espera do produto e quanto quer gastar. Sem termo técnico.</p></div>
         <div class="how-step"><div class="how-num">2</div><h3>Eu pesquiso</h3><p>Procuro nas lojas, confiro reputação do vendedor e as avaliações reais.</p></div>
         <div class="how-step"><div class="how-num">3</div><h3>Você escolhe</h3><p>Mostro tudo comparado, com uma nota de combinação. Você clica e compra.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen-categoria">
+  <div class="wrap">
+    <div class="q-shell">
+      <h2 class="q-title" style="margin-bottom:40px;">O que você quer comprar?</h2>
+      <div class="q-options" id="categoria-options"></div>
+      <button class="q-back" onclick="voltarPrincipal()">← Voltar</button>
     </div>
   </div>
 </section>
@@ -246,62 +256,103 @@
 </footer>
 
 <script>
-const CONFERIDO = 'julho/2026';
-const PERGUNTAS = [
-  { key: 'gasto', titulo: 'Quanto você quer gastar?', ajuda: 'Não tem resposta errada. Isso me ajuda a não te mostrar coisa fora do seu bolso.', opcoes: [
-      { valor: 'baixo',  rotulo: 'Até R$ 1.500',           sub: 'O essencial, bom e barato',   icone: '💰' },
-      { valor: 'medio',  rotulo: 'Entre R$ 1.500 e 2.500', sub: 'Um meio-termo equilibrado',   icone: '💳' },
-      { valor: 'alto',   rotulo: 'Posso investir mais',    sub: 'Quero o melhor, sem apertar', icone: '💎' },
-    ]
-  },
-  { key: 'casa', titulo: 'Como é a sua casa?', ajuda: 'Casas maiores ou com mais de um andar pedem um robô mais esperto pra se localizar.', opcoes: [
-      { valor: 'pequena', rotulo: 'Apartamento ou casa pequena', sub: 'Tudo no mesmo andar',        icone: '🏠' },
-      { valor: 'media',   rotulo: 'Casa de tamanho médio',        sub: 'Alguns cômodos',             icone: '🏡' },
-      { valor: 'grande',  rotulo: 'Casa grande ou dois andares',  sub: 'Preciso que ele se vire bem', icone: '🏘️' },
-    ]
-  },
-  { key: 'trabalho', titulo: 'O que é mais importante pra você?', ajuda: 'Alguns robôs só aspiram. Outros passam pano e até se limpam sozinhos.', opcoes: [
-      { valor: 'simples', rotulo: 'Só aspirar bem o pó',   sub: 'Simples e sem complicação', icone: '🧹' },
-      { valor: 'pano',    rotulo: 'Aspirar e passar pano', sub: 'Deixar o chão mais limpo',  icone: '💧' },
-      { valor: 'tudo',    rotulo: 'Que faça tudo sozinho', sub: 'Quero esquecer que existe', icone: '✨' },
-    ]
-  },
-  { key: 'ajuda', titulo: 'Você se vira bem com aplicativo de celular?', ajuda: 'Sem problema se não. Só quero te indicar algo que você consiga usar sem stress.', opcoes: [
-      { valor: 'nao',    rotulo: 'Prefiro simples, com botão', sub: 'Menos tela, melhor',   icone: '🔘' },
-      { valor: 'talvez', rotulo: 'Me viro se for fácil',       sub: 'Um app simples tá ok', icone: '📱' },
-      { valor: 'sim',    rotulo: 'Adoro um app completo',      sub: 'Quero controlar tudo', icone: '🎛️' },
-    ]
-  }
+const CATEGORIAS = [
+  { valor: 'notebook', label: 'Notebook', icon: '💻', desc: 'Para trabalho, estudo ou games' },
+  { valor: 'tv', label: 'Televisão', icon: '📺', desc: 'TV Smart com qualidade 4K' },
+  { valor: 'robô-aspirador', label: 'Robô Aspirador', icon: '🤖', desc: 'Limpeza automática inteligente' },
 ];
 
-const PRODUTOS = [
-  { id: 'electrolux-erb20', nome: 'Electrolux ERB20', marca: 'Electrolux · marca confiável', precoMin: 599, precoMax: 699, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: false, autonomia: '140 min', succao: 'Sensores, botão · navegação aleatória', nota: 4.4, avaliacoes: 631, vendedor: 'Loja oficial Electrolux', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-apirador-de-po-electrolux-home-e-control-experience-erb20-bivolt/p/MLB24593718', resumo: 'Marca consagrada, simples e confiável. Aspira e passa pano, sem complicação. Ideal pra quem não quer tecnologia demais, só limpeza garantida.' },
-  { id: 'wap-w310', nome: 'WAP Robot W310', marca: 'WAP · qualidade nacional', precoMin: 799, precoMax: 899, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: true, autonomia: '130 min', succao: 'Sensores, sem laser · 3 níveis ajustáveis', nota: 4.7, avaliacoes: 450, vendedor: 'Loja oficial WAP', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-robo-wap-w310-preto-30w-bivolt-carregador/up/MLBU3256559407', resumo: 'WAP com mais potência. Aspira, passa pano, tem app e controle remoto. Boa bateria (2h+). Pra quem quer um pouco mais de tecnologia, sem gastar muito.' },
-  { id: 'wap-w400', nome: 'WAP Robot W400', marca: 'WAP · marca brasileira', precoMin: 899, precoMax: 999, faixa: 'baixo', aspira: true, pano: true, autolimpa: false, laser: false, app: true, autonomia: '100 min', succao: 'Sensores, sem laser · navegação aleatória', nota: 4.5, avaliacoes: 6340, vendedor: 'Loja oficial WAP', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-de-po-wap-autorrecarga-e-controle-robot-w400-_JM', resumo: 'Best-seller WAP. Aspira e passa pano, controle por app e Alexa. Mais vendido = mais testado. Confiança comprada com volume.' },
-  { id: 'ekaza-zuno', nome: 'Ekaza Zuno Smart', marca: 'Ekaza · inteligência prática', precoMin: 989, precoMax: 1299, faixa: 'bajo', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '120 min', succao: '3.000 Pa · mapeamento inteligente', nota: 4.8, avaliacoes: 500, vendedor: 'Loja oficial Ekaza', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-de-po-zuno-inteligente-smart-clean-e-passa-pano-mapeamento-da-casa-alexa-24w-cor-preto-ekaza/p/MLB61991863', resumo: 'Barato mas com laser. Mapeia sua casa, aspira, passa pano. App e Alexa. O melhor custo-benefício pra quem quer inteligência sem quebrar o banco.' },
-  { id: 'xiaomi-x10', nome: 'Xiaomi Mi Robot X10', marca: 'Xiaomi · qualidade global', precoMin: 1899, precoMax: 2280, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '4.000 Pa · laser LiDAR', nota: 4.7, avaliacoes: 950, vendedor: 'Loja oficial Xiaomi', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-de-po-rob-xiaomi-x10-bhr6068eu-branco/p/MLB39142701', resumo: 'Xiaomi confiável com laser. Aspira + passa pano, 3h de bateria, app inteligente. Pra casa média sem precisar de base autolimpante.' },
-  { id: 'xiaomi-s40c', nome: 'Xiaomi S40C', marca: 'Xiaomi · tecnologia asiática', precoMin: 1399, precoMax: 1599, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '150 min', succao: '5.000 Pa · mapeamento 360°', nota: 4.7, avaliacoes: 800, vendedor: 'Loja oficial Xiaomi', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/rob-aspirador-xiaomi-s40c-aspirador-inteligente/p/MLB57895632', resumo: 'Xiaomi mais acessível. Laser 360°, aspira + pano, app inteligente. Melhor custo-benefício da faixa média segundo especialistas.' },
-  { id: 'xiaomi-s10', nome: 'Xiaomi Mi Robot S10', marca: 'Xiaomi · líder de vendas', precoMin: 2299, precoMax: 2499, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '130 min', succao: '4.000 Pa · navegação laser', nota: 4.8, avaliacoes: 1345, vendedor: 'MercadoLíder · +10 mil vendas', vendedorTipo: 'lider', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/aspirador-inteligente-xiaomi-mi-vacuum-mop-s10-bhr6389us-cor-cor-branco/p/MLB24943613', resumo: 'A melhor nota (4,8 estrelas) com mais de mil avaliações. MercadoLíder desde sempre. Confiança pura com muitos vendidos e bem avaliados.' },
-  { id: 'roborock-q7bf', nome: 'Roborock Q7 BF', marca: 'Roborock · especialista', precoMin: 1528, precoMax: 1699, faixa: 'medio', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '8.000 Pa · laser preciso', nota: 4.6, avaliacoes: 200, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/roborock-q7-bf-aspirador-robo--inteligente-branco8000-pa220v/up/MLBU3935340102', resumo: 'Roborock só faz robô. Sucção forte (8 mil Pa), laser preciso, 3h de bateria. Premium do segmento mid-pano, não é flagship mas é confiável.' },
-  { id: 'roborock-qrevo-curv', nome: 'Roborock Qrevo Curv', marca: 'Roborock · inovação premium', precoMin: 4999, precoMax: 5999, faixa: 'alto', aspira: true, pano: true, autolimpa: false, laser: true, app: true, autonomia: '180 min', succao: '18.500 Pa · mapeamento 3D', nota: 4.9, avaliacoes: 280, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/robo-aspirador-roborock-qrevo-curv-110v-novo-lancamento/up/MLBU3190270049', resumo: 'Roborock inovador. Sucção brutal (18.500 Pa), laser inteligente, design curvo que alcança cantos. Premium com design futurista. Pra quem quer mais que robô comum.' },
-  { id: 'dreame-x40', nome: 'Dreame X40 Ultra', marca: 'Dreame · tecnologia premium', precoMin: 5990, precoMax: 7490, faixa: 'alto', aspira: true, pano: true, autolimpa: true, laser: true, app: true, autonomia: '180 min', succao: '12.000 Pa · esvaziamento 75 dias', nota: 4.9, avaliacoes: 320, vendedor: 'Loja oficial Dreame', vendedorTipo: 'oficial', loja: 'Mercado Livre / Amazon', link: 'https://www.amazon.com.br/Dreame-X40-Aspirador-esvaziado-esfregona/dp/B0D534DYFR', resumo: 'Topo de linha. Sucção forte, laser inteligente, aspira + passa pano + se limpa sozinho. Base autolimpante esvazia a sujeira sozinha (75 dias). Premium pra quem quer tudo automatizado.' },
-  { id: 'roborock-s8-pro', nome: 'Roborock S8 Pro Ultra', marca: 'Roborock · referência global', precoMin: 10990, precoMax: 12490, faixa: 'alto', aspira: true, pano: true, autolimpa: true, laser: true, app: true, autonomia: '150 min', succao: '6.000 Pa · base multi-função', nota: 4.9, avaliacoes: 420, vendedor: 'Loja oficial Roborock', vendedorTipo: 'oficial', loja: 'Mercado Livre', link: 'https://www.mercadolivre.com.br/roborock-s8-pro-ultra-rob-wi-fi-aspirador-esfrego-preto-110v/p/MLB29795934', resumo: 'Referência absoluta. Autolimpeza completa (esvazia, lava, seca). Reconhece obstáculos com IA. Pra quem tem orçamento e quer esquecer que limpeza existe. Premium máximo.' }
-];
+const PERGUNTAS_POR_CATEGORIA = {
+  'notebook': [
+    { key: 'gasto', titulo: 'Quanto você quer gastar?', ajuda: '', opcoes: [
+      { valor: 'baixo', rotulo: 'Até R$ 1.500', sub: 'O essencial, bom e barato', icone: '💰' },
+      { valor: 'medio', rotulo: 'Entre R$ 1.500 e 2.500', sub: 'Um meio-termo equilibrado', icone: '💳' },
+      { valor: 'alto', rotulo: 'Posso investir mais', sub: 'Quero o melhor, sem apertar', icone: '💎' },
+    ]},
+    { key: 'trabalho', titulo: 'Para que você vai usar?', ajuda: '', opcoes: [
+      { valor: 'simples', rotulo: 'Navegador e documentos', sub: 'Uso simples e leve', icone: '📄' },
+      { valor: 'pano', rotulo: 'Desenvolvimento e criação', sub: 'IDEs, código, edição', icone: '💻' },
+      { valor: 'tudo', rotulo: 'Jogos e aplicações pesadas', sub: 'Performance máxima', icone: '🎮' },
+    ]},
+    { key: 'ajuda', titulo: 'Qual tamanho você prefere?', ajuda: '', opcoes: [
+      { valor: 'nao', rotulo: 'Ultraportátil (até 14")', sub: 'Levo para qualquer lugar', icone: '🎒' },
+      { valor: 'talvez', rotulo: 'Médio (14-16")', sub: 'Equilíbrio de tudo', icone: '📐' },
+      { valor: 'sim', rotulo: 'Grande (17"+)', sub: 'Tela grande e imersiva', icone: '🖥️' },
+    ]},
+  ],
+  'tv': [
+    { key: 'gasto', titulo: 'Quanto você quer gastar?', ajuda: '', opcoes: [
+      { valor: 'baixo', rotulo: 'Até R$ 1.500', sub: 'Entrada no mundo Smart', icone: '💰' },
+      { valor: 'medio', rotulo: 'Entre R$ 1.500 e 2.500', sub: 'Ótima qualidade, ótimo preço', icone: '💳' },
+      { valor: 'alto', rotulo: 'Posso investir mais', sub: 'Quero a melhor imagem', icone: '💎' },
+    ]},
+    { key: 'trabalho', titulo: 'Qual tamanho de tela?', ajuda: '', opcoes: [
+      { valor: 'simples', rotulo: 'Até 50"', sub: 'Quarto ou sala pequena', icone: '📱' },
+      { valor: 'pano', rotulo: '50-65"', sub: 'Sala média ou grande', icone: '📺' },
+      { valor: 'tudo', rotulo: 'Acima de 65"', sub: 'Experiência imersiva', icone: '🎬' },
+    ]},
+    { key: 'ajuda', titulo: 'Que tecnologia interessa?', ajuda: '', opcoes: [
+      { valor: 'nao', rotulo: 'Simples é bom', sub: 'Smart TV básica', icone: '🔘' },
+      { valor: 'talvez', rotulo: 'QLED é legal', sub: 'Cores mais vivas', icone: '✨' },
+      { valor: 'sim', rotulo: 'Quer o melhor: Mini-LED', sub: 'Melhor contraste possível', icone: '⭐' },
+    ]},
+  ],
+  'robô-aspirador': [
+    { key: 'gasto', titulo: 'Quanto você quer gastar?', ajuda: '', opcoes: [
+      { valor: 'baixo', rotulo: 'Até R$ 1.500', sub: 'O essencial, bom e barato', icone: '💰' },
+      { valor: 'medio', rotulo: 'Entre R$ 1.500 e 2.500', sub: 'Um meio-termo equilibrado', icone: '💳' },
+      { valor: 'alto', rotulo: 'Posso investir mais', sub: 'Quero o melhor, sem apertar', icone: '💎' },
+    ]},
+    { key: 'casa', titulo: 'Como é a sua casa?', ajuda: '', opcoes: [
+      { valor: 'pequena', rotulo: 'Apartamento ou casa pequena', sub: 'Tudo no mesmo andar', icone: '🏠' },
+      { valor: 'media', rotulo: 'Casa de tamanho médio', sub: 'Alguns cômodos', icone: '🏡' },
+      { valor: 'grande', rotulo: 'Casa grande ou dois andares', sub: 'Preciso que ele se vire bem', icone: '🏘️' },
+    ]},
+    { key: 'trabalho', titulo: 'O que é mais importante pra você?', ajuda: '', opcoes: [
+      { valor: 'simples', rotulo: 'Só aspirar bem o pó', sub: 'Simples e sem complicação', icone: '🧹' },
+      { valor: 'pano', rotulo: 'Aspirar e passar pano', sub: 'Deixar o chão mais limpo', icone: '💧' },
+      { valor: 'tudo', rotulo: 'Que faça tudo sozinho', sub: 'Quero esquecer que existe', icone: '✨' },
+    ]},
+  ],
+};
 
 let passo = 0;
+let categoriaAtual = null;
 const respostas = {};
 
-function start() {
-  gtag('event', 'quiz_iniciado', { timestamp: new Date().toISOString() });
+function selecionarCategoria() {
+  gtag('event', 'categoria_screen_aberta');
   document.getElementById('screen-intro').classList.remove('active');
+  document.getElementById('screen-categoria').classList.add('active');
+  
+  const html = CATEGORIAS.map(cat => `
+    <button class="q-opt" onclick="iniciarQuiz('${cat.valor}')">
+      <span class="q-opt-icon">${cat.icon}</span>
+      <span class="q-opt-text"><span class="q-opt-label">${cat.label}</span><span class="q-opt-sub">${cat.desc}</span></span>
+    </button>`).join('');
+  
+  document.getElementById('categoria-options').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function iniciarQuiz(categoria) {
+  gtag('event', 'categoria_selecionada', { categoria });
+  categoriaAtual = categoria;
+  Object.keys(respostas).forEach(k => delete respostas[k]);
+  passo = 0;
+  
+  document.getElementById('screen-categoria').classList.remove('active');
   document.getElementById('screen-quiz').classList.add('active');
-  passo = 0; renderPergunta(); window.scrollTo(0, 0);
+  renderPergunta();
+  window.scrollTo(0, 0);
 }
 
 function renderPergunta() {
-  const p = PERGUNTAS[passo];
-  document.getElementById('progress').innerHTML = PERGUNTAS.map((_, i) => `<div class="q-dot ${i <= passo ? 'done' : ''}"></div>`).join('');
-  document.getElementById('qcount').textContent = `Pergunta ${passo + 1} de ${PERGUNTAS.length}`;
+  const perguntas = PERGUNTAS_POR_CATEGORIA[categoriaAtual];
+  const p = perguntas[passo];
+  
+  document.getElementById('progress').innerHTML = perguntas.map((_, i) => `<div class="q-dot ${i <= passo ? 'done' : ''}"></div>`).join('');
+  document.getElementById('qcount').textContent = `Pergunta ${passo + 1} de ${perguntas.length}`;
   document.getElementById('qtitle').textContent = p.titulo;
   document.getElementById('qhelp').textContent = p.ajuda;
   document.getElementById('qoptions').innerHTML = p.opcoes.map(o => `
@@ -309,6 +360,7 @@ function renderPergunta() {
       <span class="q-opt-icon">${o.icone}</span>
       <span class="q-opt-text"><span class="q-opt-label">${o.rotulo}</span><span class="q-opt-sub">${o.sub}</span></span>
     </button>`).join('');
+  
   document.getElementById('qback').style.visibility = passo === 0 ? 'hidden' : 'visible';
   window.scrollTo(0, 0);
 }
@@ -316,19 +368,31 @@ function renderPergunta() {
 function responder(key, valor) {
   gtag('event', 'pergunta_respondida', { pergunta: key, resposta: valor, numero_pergunta: passo + 1 });
   respostas[key] = valor;
-  if (passo < PERGUNTAS.length - 1) { passo++; renderPergunta(); }
+  
+  const perguntas = PERGUNTAS_POR_CATEGORIA[categoriaAtual];
+  if (passo < perguntas.length - 1) { passo++; renderPergunta(); }
   else { rodarPesquisa(); }
 }
 
-function back() { if (passo > 0) { passo--; renderPergunta(); } }
+function back() {
+  if (passo > 0) { passo--; renderPergunta(); }
+}
+
+function voltarPrincipal() {
+  document.getElementById('screen-categoria').classList.remove('active');
+  document.getElementById('screen-intro').classList.add('active');
+  window.scrollTo(0, 0);
+}
 
 function rodarPesquisa() {
-  gtag('event', 'quiz_completo', { respostas: JSON.stringify(respostas) });
+  gtag('event', 'quiz_completo', { categoria: categoriaAtual, respostas: JSON.stringify(respostas) });
   document.getElementById('screen-quiz').classList.remove('active');
   document.getElementById('screen-loading').classList.add('active');
   window.scrollTo(0, 0);
+  
   const items = document.querySelectorAll('#loadsteps .load-item');
   items.forEach(el => el.classList.remove('on'));
+  
   let i = 0;
   const timer = setInterval(() => {
     if (i < items.length) { items[i].classList.add('on'); i++; }
@@ -336,60 +400,28 @@ function rodarPesquisa() {
   }, 750);
 }
 
-function pontuar(prod) {
-  let score = 60;
-  const r = respostas;
-  const precoNum = prod.precoMin;
-  if (r.gasto === 'baixo') { if (precoNum <= 1500) score += 30; else if (precoNum <= 2500) score -= 20; else score -= 40; }
-  else if (r.gasto === 'medio') { if (precoNum >= 1400 && precoNum <= 2600) score += 30; else if (precoNum < 1400) score += 10; else score -= 20; }
-  else { if (precoNum >= 2000) score += 24; else score += 8; }
-  if (r.casa === 'grande') { score += prod.laser ? 20 : -25; }
-  else if (r.casa === 'media') { score += prod.laser ? 14 : -4; }
-  else { score += 2; }
-  if (r.trabalho === 'simples') { score += prod.pano ? -15 : 20; }
-  else if (r.trabalho === 'pano') { score += prod.pano ? 30 : -30; }
-  else { score += prod.autolimpa ? 25 : (prod.pano ? 6 : -30); }
-  if (r.ajuda === 'nao') { score += prod.app ? -10 : 20; }
-  else if (r.ajuda === 'talvez') { score += 6; }
-  else { score += prod.app ? 14 : -12; }
-  score += (prod.nota - 4.3) * 30;
-  return Math.max(35, Math.min(99, Math.round(score)));
-}
-
-function nomePerfil() {
-  const r = respostas;
-  const chips = [];
-  chips.push({ baixo: 'Pé no chão no orçamento', medio: 'Bom custo-benefício', alto: 'Quer o melhor' }[r.gasto]);
-  chips.push({ pequena: 'Casa compacta', media: 'Casa média', grande: 'Casa grande' }[r.casa]);
-  chips.push({ simples: 'Simplicidade', pano: 'Aspira e passa pano', tudo: 'Que faça tudo sozinho' }[r.trabalho]);
-  chips.push({ nao: 'Sem complicação', talvez: 'App só se for fácil', sim: 'Curte tecnologia' }[r.ajuda]);
-  return chips;
-}
-
 function mostrarResultados() {
-  // Determina categoria (por enquanto, fixo em "aspirador")
-  const categoria = 'aspirador';
-  
-  // Chama a API
   fetch('/api/recommend', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      categoria: categoria,
+      categoria: categoriaAtual,
       respostas: respostas
     })
   })
   .then(response => response.json())
   .then(data => {
-    const ranqueado = data.resultados;
+    if (!data.sucesso) {
+      throw new Error(data.erro || 'Erro desconhecido');
+    }
     
-    // Tracking
-    gtag('event', 'resultados_exibidos', { 
-      produtos: ranqueado.map(p => p.id).join(','), 
-      match_scores: ranqueado.map(p => p.match).join(',') 
+    const resultados = data.resultados;
+    
+    gtag('event', 'resultados_exibidos', {
+      categoria: categoriaAtual,
+      produtos: resultados.map(p => p.id).join(','),
+      match_scores: resultados.map(p => p.match).join(',')
     });
-    
-    document.getElementById('rprofile').innerHTML = nomePerfil().map(c => `<span class="r-chip">${c}</span>`).join('');
     
     const rotulos = [
       { flag: '✓ Combina mais com você', cls: '' },
@@ -397,16 +429,22 @@ function mostrarResultados() {
       { flag: 'Também vale olhar', cls: 'calm' },
     ];
     
-    document.getElementById('cards').innerHTML = ranqueado.map((p, idx) => {
+    document.getElementById('rprofile').innerHTML = Object.values(respostas).slice(0, 3).map((v, i) => {
+      const labels = { baixo: 'Orçamento baixo', medio: 'Orçamento médio', alto: 'Orçamento alto', 
+                       pequena: 'Casa pequena', media: 'Casa média', grande: 'Casa grande',
+                       simples: 'Simples', pano: 'Com pano', tudo: 'Autolimpante',
+                       nao: 'Sem app', talvez: 'App ok', sim: 'Com app' };
+      return `<span class="r-chip">${labels[v] || v}</span>`;
+    }).join('');
+    
+    document.getElementById('cards').innerHTML = resultados.map((p, idx) => {
       const isMatch = idx === 0;
       const circ = 2 * Math.PI * 28;
       const dash = (p.match / 100) * circ;
       const cor = isMatch ? 'var(--gold)' : 'var(--accent)';
-      const specs = [];
-      specs.push(`<div class="spec"><span class="spec-ico">💰</span> <b>R$ ${p.preco.toLocaleString('pt-BR')}</b></div>`);
-      specs.push(`<div class="spec"><span class="spec-ico">🔋</span> ${p.specs.autonomia || p.specs.tamanho || p.specs.cpu || 'N/A'}</div>`);
+      const precoFormatado = `R$ ${p.preco.toLocaleString('pt-BR')}`;
       const estrelas = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
-      const precoLinha = `<span class="num">R$ ${p.preco.toLocaleString('pt-BR')}</span>`;
+      
       return `
         <div class="card ${isMatch ? 'match' : ''}">
           <div class="card-flag ${rotulos[idx].cls}">${rotulos[idx].flag}</div>
@@ -422,10 +460,9 @@ function mostrarResultados() {
           </div>
           <h3>${p.nome}</h3>
           <div class="card-brand">${p.marca}</div>
-          <div class="card-price">${precoLinha}</div>
-          <div class="card-specs">${specs.join('')}</div>
+          <div class="card-price"><span class="num">${precoFormatado}</span></div>
           <div class="card-trust">
-            <div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.rating.toFixed(1)}</b> &nbsp;<span style="color:var(--ink-soft)">(${p.avaliacoes.toLocaleString('pt-BR')} avaliações)</span></div>
+            <div class="trust-row"><span class="ico">⭐</span> <span class="stars">${estrelas}</span> <b>${p.rating.toFixed(1)}</b></div>
             <div class="trust-row"><span class="ico">🛡️</span> ${p.vendedor}</div>
           </div>
           <div class="card-why">${p.resumo}</div>
@@ -439,14 +476,18 @@ function mostrarResultados() {
     window.scrollTo(0, 0);
   })
   .catch(error => {
-    console.error('Erro ao buscar recomendações:', error);
+    console.error('Erro:', error);
     alert('Erro ao carregar recomendações. Tente novamente.');
+    document.getElementById('screen-loading').classList.remove('active');
+    document.getElementById('screen-quiz').classList.add('active');
   });
 }
+
 function restart() {
   gtag('event', 'quiz_reiniciado');
   Object.keys(respostas).forEach(k => delete respostas[k]);
   passo = 0;
+  categoriaAtual = null;
   document.getElementById('screen-results').classList.remove('active');
   document.getElementById('screen-intro').classList.add('active');
   window.scrollTo(0, 0);
